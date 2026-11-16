@@ -1,0 +1,42 @@
+WEBVTT
+
+NOTE Captions for the 60 second promo video. Replace together with the video.
+
+00:00:00.000 --> 00:00:00.900
+[Music]
+
+00:00:00.900 --> 00:00:02.900
+Your servers never sleep.
+
+00:00:03.000 --> 00:00:06.200
+So who's watching them?
+
+00:00:08.500 --> 00:00:12.000
+MonitorFlow. Watch, alert and update your Linux and Windows servers. All from one web page.
+
+00:00:12.300 --> 00:00:15.600
+A small agent on each server.
+
+00:00:16.000 --> 00:00:20.000
+It only connects out. Nothing to open in your firewall. Encrypted, with mutual TLS on both ends.
+
+00:00:20.300 --> 00:00:27.600
+A limit is crossed? You know right away, by email, webhook, Slack, Teams or Discord.
+
+00:00:28.000 --> 00:00:33.600
+AI suggests a fix. You approve it.
+
+00:00:33.800 --> 00:00:36.400
+Nothing runs without a person saying yes.
+
+00:00:36.700 --> 00:00:44.000
+Updates roll out in waves, in the hours you choose.
+
+00:00:44.300 --> 00:00:50.600
+Running servers for customers? Keep each one apart.
+
+00:00:50.900 --> 00:00:55.600
+Up and running in 5 minutes.
+
+00:00:56.000 --> 00:01:00.000
+MonitorFlow. Free and open source. github.com/Kidoly/monitorflow

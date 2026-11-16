@@ -1,0 +1,58 @@
+# Publishes the site to GitHub Pages. Manual only: the owner turns hosting
+# on (Settings > Pages > Source: GitHub Actions) and runs this workflow.
+# Nothing is published by a push.
+#
+# Repository variables (Settings > Secrets and variables > Actions > Variables):
+#   SITE_URL   https://monitorflow.eu, or https://monitorflow.net until .eu exists
+#   DEMO_URL   optional, defaults to https://demo.<site domain>/
+#   VIDEO_URL  optional, where the promo video is served from once it is final
+#              (a release asset, for example); empty serves /media/promo/ from the site
+
+name: Deploy site
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL }}
+      NEXT_PUBLIC_DEMO_URL: ${{ vars.DEMO_URL }}
+      NEXT_PUBLIC_VIDEO_URL: ${{ vars.VIDEO_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run guides
+      - run: npm run build
+      - name: Custom domain
+        if: ${{ vars.SITE_URL != '' }}
+        run: echo "${SITE_URL#https://}" | sed 's#/.*##' > out/CNAME
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
