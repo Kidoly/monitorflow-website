@@ -7,11 +7,13 @@ The showcase site of [MonitorFlow](https://github.com/Kidoly/monitorflow): landi
 ```sh
 npm ci
 npm run dev          # http://localhost:3000, pulls the guides on first run
-npm run build        # static site in out/
+npm run build        # static site in out/, with the live demo at out/demo/
 npm run serve        # serves out/ like a static host, on http://localhost:3000
 ```
 
-Node 20.9 or later.
+The live demo only works from a build (`npm run build`, then `npm run serve`, then open `/demo/`): `npm run dev` does not serve it.
+
+Node 20.9 or later (CI uses Node 26, `.nvmrc`).
 
 `npm run check`, `npm run typecheck` and `npm test` run in CI on every pull request.
 
@@ -27,6 +29,7 @@ Node 20.9 or later.
 | Colors and type (the product's tokens) | `src/app/globals.css` |
 | Logo, icons | `public/brand/`, `public/favicon.ico` (from `web/public/` in the product repo) |
 | Promo video, poster, captions | `public/media/promo/` |
+| Live demo (built, not committed) | `public/demo/`, from `scripts/build-demo.mjs` |
 
 ## The guides
 

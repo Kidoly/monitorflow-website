@@ -7,11 +7,10 @@ Nothing here is done yet: the owner buys domains, sets DNS and turns hosting on.
 | Domain | Serves |
 | --- | --- |
 | `monitorflow.eu` | The site: English at `/`, French at `/fr/` |
-| `demo.monitorflow.eu` | The static demo of the web interface |
 | `monitorflow.fr` | Redirects to `https://monitorflow.eu/fr/` |
 | `monitorflow.net` | Redirects to `https://monitorflow.eu/` |
 
-If `monitorflow.eu` is not bought yet, launch on `monitorflow.net` instead: set the repository variable `SITE_URL` to `https://monitorflow.net` and the demo to `demo.monitorflow.net`. Every canonical URL, the sitemap, `robots.txt` and the Open Graph tags follow that one value (`NEXT_PUBLIC_SITE_URL` at build time, read in `src/config/site.ts`). Switching to `.eu` later is the same change plus a redirect from `.net`.
+If `monitorflow.eu` is not bought yet, launch on `monitorflow.net` instead: set the repository variable `SITE_URL` to `https://monitorflow.net` and nothing else. Every canonical URL, the sitemap, `robots.txt` and the Open Graph tags follow that one value (`NEXT_PUBLIC_SITE_URL` at build time, read in `src/config/site.ts`). Switching to `.eu` later is the same change plus a redirect from `.net`.
 
 ## Hosting the site on GitHub Pages
 
@@ -33,9 +32,9 @@ At the registrar of `monitorflow.eu`:
 
 The addresses are listed in GitHub's documentation, "Managing a custom domain for your GitHub Pages site", section "Configuring an apex domain". Copy them from there on the day. Also verify the domain for the account (Settings › Pages › Verified domains, a TXT record) so nobody else can claim it.
 
-## The demo on its own subdomain
+## The demo
 
-GitHub Pages gives one site per repository, so the demo needs a home of its own. See `docs/demo.md`.
+The live demo ships with the site at `/demo/`, so it needs no domain or hosting of its own. See `docs/demo.md` for moving it to `demo.monitorflow.eu` later.
 
 ## Redirecting monitorflow.fr and monitorflow.net
 

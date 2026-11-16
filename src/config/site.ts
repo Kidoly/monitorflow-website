@@ -9,8 +9,12 @@ const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://monitorflow.eu").r
 export const site = {
   name: "MonitorFlow",
   url: siteUrl,
-  /** The static demo of the web interface, built from the product repository. */
-  demoUrl: (process.env.NEXT_PUBLIC_DEMO_URL || siteUrl.replace("://", "://demo.")).replace(/\/+$/, "") + "/",
+  /**
+   * The live demo of the web interface, built from the product repository
+   * into /demo/ (scripts/build-demo.mjs). Set NEXT_PUBLIC_DEMO_URL to serve it
+   * from its own address instead, such as https://demo.monitorflow.eu/.
+   */
+  demoUrl: process.env.NEXT_PUBLIC_DEMO_URL || "/demo/",
   github: "https://github.com/Kidoly/monitorflow",
   latestRelease: "https://github.com/Kidoly/monitorflow/releases/latest",
   /** Shown as "Latest release"; update with each release. */
