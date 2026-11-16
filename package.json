@@ -10,7 +10,7 @@
   "scripts": {
     "guides": "node scripts/fetch-guides.mjs",
     "demo": "node scripts/build-demo.mjs",
-    "predev": "node scripts/fetch-guides.mjs --if-missing",
+    "predev": "node scripts/fetch-guides.mjs --if-missing && node scripts/build-demo.mjs --if-missing",
     "dev": "next dev",
     "prebuild": "node scripts/fetch-guides.mjs --if-missing && node scripts/build-demo.mjs --if-missing",
     "build": "next build && node scripts/check-text.mjs --skip out/demo out",

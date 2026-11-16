@@ -6,12 +6,12 @@ The showcase site of [MonitorFlow](https://github.com/Kidoly/monitorflow): landi
 
 ```sh
 npm ci
-npm run dev          # http://localhost:3000, pulls the guides on first run
+npm run dev          # http://localhost:3000, pulls the guides and builds the demo on first run
 npm run build        # static site in out/, with the live demo at out/demo/
 npm run serve        # serves out/ like a static host, on http://localhost:3000
 ```
 
-The live demo only works from a build (`npm run build`, then `npm run serve`, then open `/demo/`): `npm run dev` does not serve it.
+The live demo is at `/demo/`, in `npm run dev` as in the build. The first `npm run dev` or `npm run build` builds it from the product repository (about 20 seconds); `npm run demo` rebuilds it.
 
 Node 20.9 or later (CI uses Node 26, `.nvmrc`).
 
