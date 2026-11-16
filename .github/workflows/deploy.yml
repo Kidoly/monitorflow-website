@@ -4,7 +4,7 @@
 #
 # Repository variables (Settings > Secrets and variables > Actions > Variables):
 #   SITE_URL   https://monitorflow.eu, or https://monitorflow.net until .eu exists
-#   DEMO_URL   optional, defaults to https://demo.<site domain>/
+#   DEMO_URL   optional: the demo's own address; empty serves it from the site at /demo/
 #   VIDEO_URL  optional, where the promo video is served from once it is final
 #              (a release asset, for example); empty serves /media/promo/ from the site
 
@@ -30,10 +30,10 @@ jobs:
       NEXT_PUBLIC_DEMO_URL: ${{ vars.DEMO_URL }}
       NEXT_PUBLIC_VIDEO_URL: ${{ vars.VIDEO_URL }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
       - run: npm ci
       - run: npm run guides
@@ -43,7 +43,7 @@ jobs:
         run: echo "${SITE_URL#https://}" | sed 's#/.*##' > out/CNAME
         env:
           SITE_URL: ${{ vars.SITE_URL }}
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: out
 
@@ -55,4 +55,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
