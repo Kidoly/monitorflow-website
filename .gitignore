@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Guides are pulled from the product repository at build time
+# (scripts/fetch-guides.mjs), never copied by hand.
+content/guides/
+
+# The promo video is a placeholder the owner will replace. It is not
+# committed until the owner says the final version may be published.
+public/media/promo/*.mp4
