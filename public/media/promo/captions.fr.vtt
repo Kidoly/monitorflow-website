@@ -1,0 +1,42 @@
+WEBVTT
+
+NOTE Sous-titres de la vidéo de présentation de 60 secondes. À remplacer avec la vidéo.
+
+00:00:00.000 --> 00:00:00.900
+[Musique]
+
+00:00:00.900 --> 00:00:02.900
+Vos serveurs ne dorment jamais.
+
+00:00:03.000 --> 00:00:06.200
+Alors qui les surveille ?
+
+00:00:08.500 --> 00:00:12.000
+MonitorFlow. Surveillez, alertez et mettez à jour vos serveurs Linux et Windows. Depuis une seule page web.
+
+00:00:12.300 --> 00:00:15.600
+Un petit agent sur chaque serveur.
+
+00:00:16.000 --> 00:00:20.000
+Il ne fait que sortir. Rien à ouvrir dans votre pare-feu. Chiffré, avec TLS mutuel aux deux bouts.
+
+00:00:20.300 --> 00:00:27.600
+Une limite est dépassée ? Vous le savez tout de suite, par e-mail, webhook, Slack, Teams ou Discord.
+
+00:00:28.000 --> 00:00:33.600
+L'IA propose une correction. Vous l'approuvez.
+
+00:00:33.800 --> 00:00:36.400
+Rien ne s'exécute sans qu'une personne dise oui.
+
+00:00:36.700 --> 00:00:44.000
+Les mises à jour se font par vagues, aux heures que vous choisissez.
+
+00:00:44.300 --> 00:00:50.600
+Vous gérez des serveurs pour des clients ? Gardez chacun à part.
+
+00:00:50.900 --> 00:00:55.600
+Prêt en 5 minutes.
+
+00:00:56.000 --> 00:01:00.000
+MonitorFlow. Libre et open source. github.com/Kidoly/monitorflow
