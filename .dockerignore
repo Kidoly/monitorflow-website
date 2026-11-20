@@ -1,0 +1,13 @@
+# Build inputs only: no local builds, no pulled content, no unpublished media.
+.git
+.github
+node_modules
+.next
+out
+content/guides
+public/demo
+public/media/promo/*.mp4
+*.tsbuildinfo
+next-env.d.ts
+Dockerfile
+.dockerignore

@@ -2,6 +2,8 @@
 
 Nothing here is done yet: the owner buys domains, sets DNS and turns hosting on. This page says what to set.
 
+Two ways to host it: GitHub Pages (below), or the container image (see "Running the image").
+
 ## The plan
 
 | Domain | Serves |
@@ -31,6 +33,30 @@ At the registrar of `monitorflow.eu`:
 | CNAME | `www` | `kidoly.github.io.` |
 
 The addresses are listed in GitHub's documentation, "Managing a custom domain for your GitHub Pages site", section "Configuring an apex domain". Copy them from there on the day. Also verify the domain for the account (Settings › Pages › Verified domains, a TXT record) so nobody else can claim it.
+
+## Running the image
+
+The site also ships as a container image: the same static export, served by an unprivileged nginx on port 8080 (`Dockerfile`, server config in `deploy/nginx.conf`). The **Image** workflow builds it on every push to `main` and pushes it to `ghcr.io/kidoly/monitorflow-website`, tagged with the full commit SHA and `main`. It reads the same repository variables as the Pages workflow (`SITE_URL`, `DEMO_URL`, `VIDEO_URL`), baked in at build time.
+
+```sh
+docker run --rm -p 8080:8080 --read-only --tmpfs /tmp --cap-drop ALL \
+  ghcr.io/kidoly/monitorflow-website:<commit-sha>
+```
+
+Then open `http://localhost:8080/`. Build it yourself with `docker build -t monitorflow-website --build-arg NEXT_PUBLIC_SITE_URL=https://monitorflow.eu .` (the build pulls the guides and the demo from the product repository, so it needs network access).
+
+What the server does:
+
+- Pages are `<route>/index.html`; `/pricing` redirects to `/pricing/` (relative `Location`, so it keeps the scheme and host of a TLS proxy in front).
+- A missing page answers `404.html` with status 404.
+- `/_next/static/` and `/demo/_next/static/` (hashed files) are cached for a year; pages and route payloads are revalidated on every visit; other files for an hour.
+- Security headers on every response: `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options` and a Content Security Policy that only allows the site's own origin. `VIDEO_URL` on another origin needs that origin added to `media-src` in `deploy/nginx.conf`.
+- `/healthz` answers 200 for health checks.
+- The process runs as uid 101 and only writes to `/tmp`, so the root filesystem can be read-only.
+
+The promo video is not in the image (it is not published yet); the page shows its poster until `VIDEO_URL` points at the final file or the file is committed.
+
+Put a TLS-terminating proxy or tunnel in front of it; the container itself speaks plain HTTP.
 
 ## The demo
 
