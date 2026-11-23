@@ -1,6 +1,8 @@
-# Publishes the site to GitHub Pages. Manual only: the owner turns hosting
-# on (Settings > Pages > Source: GitHub Actions) and runs this workflow.
-# Nothing is published by a push.
+# Publishes the site to GitHub Pages, every night (so new guides, a new
+# demo and a new release number go live without a change here) and by hand.
+# Nothing is published until the owner turns hosting on (Settings > Pages >
+# Source: GitHub Actions): until then the nightly run finds Pages off and
+# stops without building.
 #
 # Repository variables (Settings > Secrets and variables > Actions > Variables):
 #   SITE_URL   https://monitorflow.eu, or https://monitorflow.net until .eu exists
@@ -11,6 +13,8 @@
 name: Deploy site
 
 on:
+  schedule:
+    - cron: "47 4 * * *"
   workflow_dispatch:
 
 permissions:
@@ -23,7 +27,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  pages-on:
+    runs-on: ubuntu-latest
+    outputs:
+      on: ${{ steps.check.outputs.on }}
+    steps:
+      - id: check
+        name: Is GitHub Pages turned on?
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api "repos/${{ github.repository }}/pages" --jq .build_type >/dev/null 2>&1; then
+            echo "on=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "on=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::GitHub Pages is off (Settings > Pages): nothing published."
+          fi
+
   build:
+    needs: pages-on
+    if: ${{ needs.pages-on.outputs.on == 'true' }}
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL }}
