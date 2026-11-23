@@ -19,7 +19,7 @@ If `monitorflow.eu` is not bought yet, launch on `monitorflow.net` instead: set 
 1. GitHub Pages on a private repository needs a paid GitHub plan. Either make this repository public or use a plan that allows it, or host `out/` elsewhere (any static host works).
 2. Settings › Pages › Source: **GitHub Actions**.
 3. Settings › Secrets and variables › Actions › Variables: `SITE_URL` = `https://monitorflow.eu`.
-4. Actions › **Deploy site** › Run workflow. It builds and publishes; it writes the `CNAME` file from `SITE_URL`. From then on it also runs every night, so new guides, the demo and the release number go live by themselves. While Pages is off, the nightly run stops without publishing.
+4. Actions › **Deploy site** › Run workflow. It builds and publishes; it writes the `CNAME` file from `SITE_URL`.
 5. Settings › Pages › Custom domain: `monitorflow.eu`, then **Enforce HTTPS** once the certificate is issued.
 
 ### DNS records for the site (apex domain on GitHub Pages)
@@ -36,7 +36,7 @@ The addresses are listed in GitHub's documentation, "Managing a custom domain fo
 
 ## Running the image
 
-The site also ships as a container image: the same static export, served by an unprivileged nginx on port 8080 (`Dockerfile`, server config in `deploy/nginx.conf`). The **Image** workflow builds it on every push to `main` and every night, and pushes it to `ghcr.io/kidoly/monitorflow-website`, tagged with the full commit SHA and `main`. It reads the same repository variables as the Pages workflow (`SITE_URL`, `DEMO_URL`, `VIDEO_URL`), baked in at build time.
+The site also ships as a container image: the same static export, served by an unprivileged nginx on port 8080 (`Dockerfile`, server config in `deploy/nginx.conf`). The **Image** workflow builds it on every push to `main` and pushes it to `ghcr.io/kidoly/monitorflow-website`, tagged with the full commit SHA and `main`. It reads the same repository variables as the Pages workflow (`SITE_URL`, `DEMO_URL`, `VIDEO_URL`), baked in at build time.
 
 ```sh
 docker run --rm -p 8080:8080 --read-only --tmpfs /tmp --cap-drop ALL \
@@ -57,15 +57,6 @@ What the server does:
 The promo video is not in the image (it is not published yet); the page shows its poster until `VIDEO_URL` points at the final file or the file is committed.
 
 Put a TLS-terminating proxy or tunnel in front of it; the container itself speaks plain HTTP.
-
-### Deploying each night's image by itself
-
-The `main` tag moves to each new image, including the nightly one, which changes only when the product has something new. The cluster has to pull it; two ways:
-
-- **Image automation** in the GitOps tool that deploys the cluster: watch `ghcr.io/kidoly/monitorflow-website`, follow the `main` tag's digest, and write it to the manifest. Each change is then a commit, easy to roll back.
-- **Simplest:** run the `main` tag with `imagePullPolicy: Always`, and restart the deployment once a night after the image is built (the Image workflow runs at 04:17 UTC), from a CronJob whose service account may only patch that one deployment.
-
-If the package on the registry is private, the cluster also needs a pull secret; making the package public avoids it, as the image holds nothing that is not on the site.
 
 ## The demo
 
