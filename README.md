@@ -51,6 +51,7 @@ A new guide in the product repo appears on the site at the next build, with noth
 | Live demo | Built from the product's `main` at every build |
 | "Latest release" number | The product's highest `vX.Y.Z` tag, at every build (`npm run release`) |
 | The container image | Rebuilt every night by the Image workflow, and on every push to `main`. A night with nothing new in the product changes nothing |
+| GitHub Pages | Deployed every night by the Deploy site workflow, once Pages is turned on (Settings › Pages). Until then the nightly run stops without publishing |
 | Landing page and pricing copy | **By hand.** The Release watch workflow opens an issue when the product has a release newer than `copyReviewedFor` in `src/config/site.ts`, and closes it once that value is raised |
 
 ## Rules
