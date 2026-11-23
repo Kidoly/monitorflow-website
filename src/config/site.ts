@@ -18,7 +18,7 @@ export const site = {
   github: "https://github.com/Kidoly/monitorflow",
   latestRelease: "https://github.com/Kidoly/monitorflow/releases/latest",
   /** Shown as "Latest release"; update with each release. */
-  version: "0.6.0",
+  version: "0.11.0",
   license: "AGPL-3.0-or-later",
 } as const;
 

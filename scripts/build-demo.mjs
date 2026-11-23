@@ -8,8 +8,7 @@
 // Environment:
 //   MF_PRODUCT_DIR   a local checkout to build from instead of cloning
 //   MF_PRODUCT_REPO  git URL (default: https://github.com/Kidoly/monitorflow.git)
-//   MF_DEMO_REF      branch or tag (default: main, or the demo's pull request
-//                    branch while main has no demo build yet)
+//   MF_DEMO_REF      branch or tag (default: main)
 //   NEXT_PUBLIC_SITE_URL  the site, for the demo banner's "Website" link
 
 import { execFileSync, spawnSync } from "node:child_process";
@@ -21,8 +20,6 @@ const root = resolve(import.meta.dirname, "..");
 const dest = join(root, "public", "demo");
 const repo = process.env.MF_PRODUCT_REPO ?? "https://github.com/Kidoly/monitorflow.git";
 const site = (process.env.NEXT_PUBLIC_SITE_URL || "https://monitorflow.eu").replace(/\/+$/, "");
-// Until Kidoly/monitorflow#524 is merged, main has no demo build.
-const FALLBACK_REF = "web/static-demo";
 
 if (process.argv.includes("--if-missing") && existsSync(join(dest, "index.html"))) process.exit(0);
 
@@ -42,18 +39,8 @@ function clone(ref) {
   return dir;
 }
 
-let checkout = process.env.MF_PRODUCT_DIR ? resolve(process.env.MF_PRODUCT_DIR) : null;
-let tmp = null;
-if (!checkout) {
-  const wanted = process.env.MF_DEMO_REF;
-  tmp = clone(wanted ?? "main");
-  if (!wanted && !hasDemoBuild(join(tmp, "web"))) {
-    rmSync(tmp, { recursive: true, force: true });
-    console.log(`main has no demo build yet: using ${FALLBACK_REF}`);
-    tmp = clone(FALLBACK_REF);
-  }
-  checkout = tmp;
-}
+const tmp = process.env.MF_PRODUCT_DIR ? null : clone(process.env.MF_DEMO_REF || "main");
+const checkout = tmp ?? resolve(process.env.MF_PRODUCT_DIR);
 const web = join(checkout, "web");
 if (!hasDemoBuild(web)) {
   console.error(`No build:demo script in ${web}/package.json`);

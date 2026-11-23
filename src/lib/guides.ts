@@ -12,6 +12,7 @@ import { join, posix } from "node:path";
 import { Marked, type Tokens } from "marked";
 import { site } from "@/config/site";
 import type { Lang } from "@/lib/i18n";
+import { isHidden, withoutHidden } from "@/lib/hidden-guides";
 
 const ROOT = join(process.cwd(), "content", "guides");
 
@@ -124,7 +125,7 @@ function readGuide(lang: Lang, file: string): Guide {
     lang,
     translation: data.translation || null,
     // The page draws its own title, so the guide's first heading goes.
-    html: render(body.replace(/^\s*#\s+.+\n/, ""), lang === "fr" ? "fr" : ""),
+    html: render(withoutHidden(body.replace(/^\s*#\s+.+\n/, "")), lang === "fr" ? "fr" : ""),
   };
 }
 
@@ -141,7 +142,8 @@ export function listGuides(lang: Lang): Guide[] {
   const guides = readdirSync(dir)
     .filter((f) => f.endsWith(".md") && f !== "README.md")
     .sort()
-    .map((f) => readGuide(lang, f));
+    .map((f) => readGuide(lang, f))
+    .filter((g) => !isHidden(g.slug));
   cache.set(lang, guides);
   return guides;
 }

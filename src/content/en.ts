@@ -4,15 +4,15 @@
 
 export const en = {
   meta: {
-    homeTitle: "MonitorFlow: watch, alert and update your Linux and Windows servers",
+    homeTitle: "MonitorFlow: monitor your servers, network and websites, fix what breaks",
     homeDescription:
-      "Free and open source server monitoring for Linux and Windows: alerts, updates in waves and AI fixes a person approves, all from one web page.",
+      "Free and open source monitoring for Linux and Windows servers, network devices and websites: alerts, availability reports, updates in waves and AI fixes a person approves.",
     pricingTitle: "Pricing: free and open source, support if you want it | MonitorFlow",
     pricingDescription:
       "Every feature to watch, alert on, update and fix servers is free, with no limit. Subscriptions add support, a tested update channel and high availability.",
     guidesTitle: "How to monitor your servers: step-by-step guides | MonitorFlow",
     guidesDescription:
-      "Step-by-step guides to monitor databases, web servers, Linux and Windows services, disks and logs with MonitorFlow, and get alerted.",
+      "Step-by-step guides to monitor servers, network devices, websites, databases, virtual machines, Linux and Windows services with MonitorFlow, and get alerted.",
     notFoundTitle: "Page not found | MonitorFlow",
   },
   nav: {
@@ -31,9 +31,9 @@ export const en = {
     badge: "Free and open source",
     status: "Early development",
     version: "Latest release",
-    title: "Watch, alert and update your Linux and Windows servers.",
+    title: "Watch your servers and network. Fix what breaks. Keep them up to date.",
     lead:
-      "All from one web page. Install one central server, then a small program, called an agent, on each server you want to watch. MonitorFlow tells you when something goes wrong and keeps your servers up to date.",
+      "All from one web page. Install one central server, then a small program, called an agent, on each Linux or Windows server. Switches, printers, websites and virtual machines are watched without one. MonitorFlow tells you when something goes wrong and keeps your servers up to date.",
     audience: "For a company running its own servers, a service provider running them for customers, and your homelab.",
     demo: "Try the live demo",
     install: "Install in 5 minutes",
@@ -78,11 +78,11 @@ export const en = {
       },
       {
         title: "A relay for remote sites",
-        text: "Optional. At a remote site, one relay carries the traffic of the servers behind it, keeps their data while the link is down, and can keep a local copy of the packages.",
+        text: "Optional. At a remote site, one relay carries the traffic of the servers behind it, keeps their data while the link is down, watches the site's network devices and can keep a local copy of the packages.",
       },
       {
         title: "The central server does the rest",
-        text: "One Linux machine stores metrics and logs, opens alerts, sends notifications, runs updates and serves the web interface.",
+        text: "One Linux machine stores metrics and logs, checks devices and websites, opens alerts, sends notifications, runs updates and serves the web interface.",
       },
     ],
     diagramAlt:
@@ -93,34 +93,66 @@ export const en = {
     items: [
       {
         id: "monitoring",
-        title: "Watch everything that matters",
+        title: "Watch your servers",
         points: [
-          "CPU, memory, disks, disk I/O, services and ports",
+          "CPU, memory, disks, disk I/O, network traffic, services and ports",
           "Logs: journald, the Windows Event Log and log files",
-          "Proxmox containers, LVM and ZFS snapshots",
           "Your own Bash or PowerShell scripts as checks",
           "Sensible limits out of the box, changed per server or per site",
+          "Each check runs as often as you choose, from seconds to hours",
+        ],
+      },
+      {
+        id: "network",
+        title: "Network devices and websites",
+        points: [
+          "Ping and TCP or UDP ports of any address, from the central server or a relay of the site",
+          "Switches, routers, firewalls, printers, UPSs and NAS over SNMP v1, v2c and v3, from a template per kind of device",
+          "Any SNMP value you name, with your own MIB files",
+          "Websites as a visitor sees them: status code, expected text, response time, redirects and certificate expiry",
+          "Scan an address range and add what it finds in one click, on a schedule if you like",
+        ],
+      },
+      {
+        id: "machines",
+        title: "Hypervisors and virtual machines",
+        points: [
+          "Proxmox VE hosts found by themselves, their containers and snapshots",
+          "VMware vCenter and ESXi: hosts, virtual machines and datastores, without an agent in each virtual machine",
+          "Hyper-V hosts through the Windows agent",
+          "Each virtual machine tied to the server already watched",
+          "LVM and ZFS snapshots",
         ],
       },
       {
         id: "alerts",
         title: "Alerts that reach the right person",
         points: [
-          "Email, webhook, Slack, Teams and Discord",
-          "Silences for planned work",
-          "On-call rotations, with covers for holidays",
-          "Acknowledge an alert to say you are on it. Nobody does? Administrators are told after 15 minutes, by default",
-          "Related incidents grouped: at most one message a minute",
+          "Email, webhook, Slack, Teams and Discord, routed per customer and site",
+          "Dependencies: when a switch goes down, what sits behind it opens no alert of its own",
+          "Rules on averages and trends: \"the disk will be full in 3 days\"",
+          "Silence one check or a whole server, once or every week or month",
+          "On-call rotations, and a reminder to the next people when nobody acknowledges",
         ],
       },
       {
         id: "updates",
         title: "Updates in waves, when you choose",
         points: [
-          "Local copies (mirrors) of the Debian, Ubuntu and Rocky Linux and AlmaLinux package repositories",
+          "Local copies (mirrors) of the Debian, Ubuntu and RHEL-family package repositories",
           "On demand by default: packages are fetched when first needed, so mirrors fit in about 100 GB",
           "Update campaigns in waves, during the hours you choose, stopped on failure",
           "Windows Update, and apps through winget, Flatpak and Snap",
+        ],
+      },
+      {
+        id: "reports",
+        title: "Availability you can show",
+        points: [
+          "Availability of servers, devices and checks, over a month or any period",
+          "Business services: a group of checks with its own rule and SLA target",
+          "Maintenance windows left out of the figures",
+          "PDF and CSV reports sent by email on a schedule, per customer",
         ],
       },
       {
@@ -134,11 +166,12 @@ export const en = {
       },
       {
         id: "integrations",
-        title: "An API for everything",
+        title: "Fits in with your tools",
         points: [
-          "A public API (/api/v1) documented with OpenAPI, and Swagger UI on every install",
-          "Signed outgoing webhooks for incidents, acknowledgements, servers and updates",
-          "Signed plugins, installed from the web interface, to add checks and channels",
+          "Sign in with your identity provider: OpenID Connect, or LDAP over TLS",
+          "Move hosts, checks, thresholds and channels from another monitoring tool, with a preview first",
+          "A public API documented with OpenAPI: everything the web interface does",
+          "Signed outgoing webhooks, and signed plugins to add checks and channels",
         ],
       },
       {
@@ -188,7 +221,7 @@ export const en = {
   msp: {
     title: "For service providers, out of sight until you need it",
     text:
-      "Customers keep their servers, sites and notifications apart, and a user's role can cover everything, one customer or one site. A single company never sees any of it: customers appear once you add a second one.",
+      "Customers keep their servers, sites and notifications apart, a user's role can cover everything, one customer or one site, and each customer gets its own availability report. A single company never sees any of it: customers appear once you add a second one.",
   },
   install: {
     title: "Up and running in 5 minutes",
@@ -211,7 +244,7 @@ export const en = {
     copied: "Copied",
     requirementsTitle: "What you need",
     requirements: [
-      "A Linux machine with 2 vCPU and 4 GB of RAM for a few dozen servers. Docker is installed for you if it is missing.",
+      "A Linux machine with 2 vCPU and 4 GB of RAM: enough for about 8,000 servers in our load test. Docker is installed for you if it is missing.",
       "Ports 443 and 80 (web interface), 7443 and 7445 (agents and relays), 7480 (packages, if you use updates).",
       "Servers to watch: any Linux with systemd (x86_64 or ARM64), or Windows.",
     ],
@@ -221,9 +254,12 @@ export const en = {
     title: "Coming",
     lead: "On the roadmap, not in a release yet.",
     items: [
-      "Sign in through your own identity provider: OpenID Connect, or LDAP over TLS (LDAPS)",
-      "Move your checks over from another monitoring tool, with a preview first",
+      "Ready-made checks for databases, containers and cloud services, instead of scripts",
+      "Network maps drawn from discovery, with live states",
+      "Traffic flows (NetFlow, sFlow, IPFIX): which addresses and applications use the bandwidth",
+      "Major distribution upgrades in waves, Debian 12 to 13 first",
       "A connection to PSA tools (the ticketing tools of service providers): a ticket per incident",
+      "A mobile app with push notifications",
     ],
     roadmap: "Read the roadmap",
   },
