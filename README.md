@@ -43,6 +43,16 @@ MF_PRODUCT_DIR=../monitorflow npm run guides  # a local checkout
 
 A new guide in the product repo appears on the site at the next build, with nothing to change here.
 
+## What updates by itself
+
+| What | How |
+| --- | --- |
+| Guides | Pulled from the product's `docs/guides/` at every build |
+| Live demo | Built from the product's `main` at every build |
+| "Latest release" number | The product's highest `vX.Y.Z` tag, at every build (`npm run release`) |
+| The container image | Rebuilt every night by the Image workflow, and on every push to `main`. A night with nothing new in the product changes nothing |
+| Landing page and pricing copy | **By hand.** The Release watch workflow opens an issue when the product has a release newer than `copyReviewedFor` in `src/config/site.ts`, and closes it once that value is raised |
+
 ## Rules
 
 - Never the em dash character, anywhere. `npm run check` and every build fail on one, including in the pulled guides.

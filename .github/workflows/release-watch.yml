@@ -1,0 +1,74 @@
+# Opens an issue when MonitorFlow has a release newer than the one the site's
+# copy was last checked against (copyReviewedFor in src/config/site.ts).
+# The guides, the demo and the release number update by themselves; the
+# landing page and pricing copy are written by hand, so a person reads the
+# release and updates src/content/, then raises copyReviewedFor. The issue
+# then closes itself at the next run.
+
+name: Release watch
+
+on:
+  schedule:
+    - cron: "37 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: release-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - name: Compare the latest release with the reviewed one
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          latest=$(node scripts/fetch-release.mjs --print)
+          reviewed=$(sed -n 's/^  copyReviewedFor: "\([0-9.]*\)",$/\1/p' src/config/site.ts)
+          if [ -z "$reviewed" ]; then
+            echo "copyReviewedFor not found in src/config/site.ts" >&2
+            exit 1
+          fi
+          echo "Latest release: $latest. Copy reviewed for: $reviewed."
+          prefix="Update the site for MonitorFlow"
+          open=$(gh issue list --state open --search "\"$prefix\" in:title" --json number,title --jq '.[] | "\(.number)\t\(.title)"')
+
+          if [ "$(printf '%s\n%s\n' "$reviewed" "$latest" | sort -V | tail -1)" = "$reviewed" ]; then
+            # Up to date: close what an earlier run opened.
+            printf '%s\n' "$open" | while IFS="$(printf '\t')" read -r number title; do
+              [ -n "$number" ] && gh issue close "$number" --comment "The copy is reviewed for $reviewed."
+            done
+            exit 0
+          fi
+
+          title="$prefix $latest"
+          if printf '%s\n' "$open" | cut -f2 | grep -qxF "$title"; then
+            echo "Issue already open: $title"
+            exit 0
+          fi
+          # An older release's issue is replaced by the newer one.
+          printf '%s\n' "$open" | while IFS="$(printf '\t')" read -r number _; do
+            [ -n "$number" ] && gh issue close "$number" --comment "Replaced by the issue for $latest."
+          done
+          gh issue create --title "$title" --body "$(cat <<BODY
+          MonitorFlow $latest is out, and the site's copy was last checked against $reviewed.
+
+          Already up to date by themselves at the next build: the guides, the live demo and the release number.
+
+          To do by hand:
+
+          - [ ] Read the releases since $reviewed: https://github.com/Kidoly/monitorflow/releases
+          - [ ] Compare with the roadmap: https://github.com/Kidoly/monitorflow/blob/main/docs/roadmap.md
+          - [ ] Update \`src/content/en.ts\` and \`src/content/fr.ts\`: features, "Coming", requirements, pricing FAQ. Only what exists; no other product named.
+          - [ ] Set \`copyReviewedFor\` to \`$latest\` in \`src/config/site.ts\`. This issue then closes itself.
+          BODY
+          )"

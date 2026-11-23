@@ -17,8 +17,17 @@ export const site = {
   demoUrl: process.env.NEXT_PUBLIC_DEMO_URL || "/demo/",
   github: "https://github.com/Kidoly/monitorflow",
   latestRelease: "https://github.com/Kidoly/monitorflow/releases/latest",
-  /** Shown as "Latest release"; update with each release. */
-  version: "0.11.0",
+  /**
+   * Shown as "Latest release". Found at build time from the product's tags
+   * (scripts/fetch-release.mjs); this file's value is only the fallback.
+   */
+  version: process.env.NEXT_PUBLIC_MF_VERSION || "0.11.0",
+  /**
+   * The release the landing page and pricing copy were last checked against.
+   * Raise it after reading a new release and updating src/content/. While a
+   * newer release exists, the "Release watch" workflow keeps an issue open.
+   */
+  copyReviewedFor: "0.11.0",
   license: "AGPL-3.0-or-later",
 } as const;
 
