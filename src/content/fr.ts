@@ -47,6 +47,7 @@ export const fr: Copy = {
     title: "MonitorFlow en une minute",
     note: "Avec le son. Sous-titres en français et en anglais.",
     fallback: "Votre navigateur ne peut pas lire cette vidéo.",
+    soon: "La vidéo arrive bientôt.",
     download: "Télécharger la vidéo",
   },
   audiences: {

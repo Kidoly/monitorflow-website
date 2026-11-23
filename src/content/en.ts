@@ -45,6 +45,7 @@ export const en = {
     title: "MonitorFlow in one minute",
     note: "With sound. Captions in English and French.",
     fallback: "Your browser cannot play this video.",
+    soon: "The video is coming soon.",
     download: "Download the video",
   },
   audiences: {
