@@ -6,15 +6,15 @@ import type { Copy } from "./en";
 
 export const fr: Copy = {
   meta: {
-    homeTitle: "MonitorFlow : surveillez, alertez et mettez à jour vos serveurs Linux et Windows",
+    homeTitle: "MonitorFlow : supervisez serveurs, réseau et sites web, réparez ce qui casse",
     homeDescription:
-      "Supervision de serveurs Linux et Windows libre et open source : alertes, mises à jour par vagues et corrections par IA validées par une personne, depuis une seule page web.",
+      "Supervision libre et open source des serveurs Linux et Windows, des équipements réseau et des sites web : alertes, rapports de disponibilité, mises à jour par vagues et corrections par IA validées par une personne.",
     pricingTitle: "Tarifs : libre et gratuit, du support si vous le voulez | MonitorFlow",
     pricingDescription:
       "Tout ce qu'il faut pour surveiller, alerter, mettre à jour et réparer vos serveurs est gratuit, sans limite. Les abonnements ajoutent le support, un canal de mises à jour testé et la haute disponibilité.",
     guidesTitle: "Comment surveiller vos serveurs : guides pas à pas | MonitorFlow",
     guidesDescription:
-      "Des guides pas à pas pour surveiller bases de données, serveurs web, services Linux et Windows, disques et journaux avec MonitorFlow.",
+      "Des guides pas à pas pour surveiller serveurs, équipements réseau, sites web, bases de données, machines virtuelles, services Linux et Windows avec MonitorFlow.",
     notFoundTitle: "Page introuvable | MonitorFlow",
   },
   nav: {
@@ -33,9 +33,9 @@ export const fr: Copy = {
     badge: "Libre et open source",
     status: "Développement en cours",
     version: "Dernière version",
-    title: "Surveillez, alertez et mettez à jour vos serveurs Linux et Windows.",
+    title: "Surveillez vos serveurs et votre réseau. Réparez ce qui casse. Gardez tout à jour.",
     lead:
-      "Le tout depuis une seule page web. Installez un serveur central, puis un petit programme, appelé agent, sur chaque serveur à surveiller. MonitorFlow vous prévient quand quelque chose ne va pas et garde vos serveurs à jour.",
+      "Le tout depuis une seule page web. Installez un serveur central, puis un petit programme, appelé agent, sur chaque serveur Linux ou Windows. Commutateurs, imprimantes, sites web et machines virtuelles sont surveillés sans agent. MonitorFlow vous prévient quand quelque chose ne va pas et garde vos serveurs à jour.",
     audience: "Pour une entreprise qui gère ses serveurs, un prestataire qui les gère pour ses clients, et votre homelab.",
     demo: "Essayer la démo en ligne",
     install: "Installer en 5 minutes",
@@ -80,11 +80,11 @@ export const fr: Copy = {
       },
       {
         title: "Un relais pour les sites distants",
-        text: "Facultatif. Sur un site distant, un relais transporte le trafic des serveurs derrière lui, garde leurs données pendant une coupure du lien, et peut garder une copie locale des paquets.",
+        text: "Facultatif. Sur un site distant, un relais transporte le trafic des serveurs derrière lui, garde leurs données pendant une coupure du lien, surveille les équipements réseau du site et peut garder une copie locale des paquets.",
       },
       {
         title: "Le serveur central fait le reste",
-        text: "Une machine Linux stocke métriques et journaux, ouvre les alertes, envoie les notifications, lance les mises à jour et sert l'interface web.",
+        text: "Une machine Linux stocke métriques et journaux, vérifie équipements et sites web, ouvre les alertes, envoie les notifications, lance les mises à jour et sert l'interface web.",
       },
     ],
     diagramAlt:
@@ -95,34 +95,66 @@ export const fr: Copy = {
     items: [
       {
         id: "monitoring",
-        title: "Surveiller ce qui compte",
+        title: "Surveiller vos serveurs",
         points: [
-          "Processeur, mémoire, disques, entrées-sorties disque, services et ports",
+          "Processeur, mémoire, disques, entrées-sorties disque, trafic réseau, services et ports",
           "Journaux : journald, le journal d'événements Windows et les fichiers journaux",
-          "Conteneurs Proxmox, instantanés LVM et ZFS",
           "Vos propres scripts Bash ou PowerShell comme vérifications",
           "Des seuils raisonnables d'office, modifiables par serveur ou par site",
+          "Chaque vérification tourne au rythme choisi, de quelques secondes à quelques heures",
+        ],
+      },
+      {
+        id: "network",
+        title: "Équipements réseau et sites web",
+        points: [
+          "Ping et ports TCP ou UDP de n'importe quelle adresse, depuis le serveur central ou un relais du site",
+          "Commutateurs, routeurs, pare-feu, imprimantes, onduleurs et NAS en SNMP v1, v2c et v3, avec un modèle par type d'équipement",
+          "N'importe quelle valeur SNMP, avec vos propres fichiers MIB",
+          "Les sites web comme un visiteur les voit : code de réponse, texte attendu, temps de réponse, redirections et expiration du certificat",
+          "Analysez une plage d'adresses et ajoutez ce qui est trouvé en un clic, à intervalle régulier si vous le voulez",
+        ],
+      },
+      {
+        id: "machines",
+        title: "Hyperviseurs et machines virtuelles",
+        points: [
+          "Hôtes Proxmox VE trouvés tout seuls, leurs conteneurs et instantanés",
+          "VMware vCenter et ESXi : hôtes, machines virtuelles et banques de données, sans agent dans chaque machine virtuelle",
+          "Hôtes Hyper-V par l'agent Windows",
+          "Chaque machine virtuelle reliée au serveur déjà surveillé",
+          "Instantanés LVM et ZFS",
         ],
       },
       {
         id: "alerts",
         title: "Des alertes qui arrivent à la bonne personne",
         points: [
-          "E-mail, webhook, Slack, Teams et Discord",
-          "Silences pour les interventions prévues",
-          "Astreintes à tour de rôle, avec remplacements pour les congés",
-          "Prenez une alerte en charge pour dire que vous vous en occupez. Personne ne le fait ? Les administrateurs sont prévenus après 15 minutes, par défaut",
-          "Incidents liés regroupés : au plus un message par minute",
+          "E-mail, webhook, Slack, Teams et Discord, envoyés par client et par site",
+          "Dépendances : quand un commutateur tombe, ce qui est derrière n'ouvre pas d'alerte en plus",
+          "Des règles sur les moyennes et les tendances : « le disque sera plein dans 3 jours »",
+          "Mettez en silence une vérification ou tout un serveur, une fois ou chaque semaine ou chaque mois",
+          "Astreintes à tour de rôle, et un rappel aux suivants quand personne ne prend l'alerte en charge",
         ],
       },
       {
         id: "updates",
         title: "Des mises à jour par vagues, quand vous le décidez",
         points: [
-          "Copies locales (miroirs) des dépôts de paquets Debian, Ubuntu, Rocky Linux et AlmaLinux",
+          "Copies locales (miroirs) des dépôts de paquets Debian, Ubuntu et de la famille RHEL",
           "À la demande par défaut : les paquets sont récupérés au premier besoin, les miroirs tiennent dans environ 100 Go",
           "Campagnes de mise à jour par vagues, aux heures que vous choisissez, arrêtées en cas d'échec",
           "Windows Update, et les applications via winget, Flatpak et Snap",
+        ],
+      },
+      {
+        id: "reports",
+        title: "Une disponibilité que vous pouvez montrer",
+        points: [
+          "La disponibilité des serveurs, équipements et vérifications, sur un mois ou toute période",
+          "Services métier : un groupe de vérifications avec sa propre règle et son objectif de SLA",
+          "Les fenêtres de maintenance exclues des chiffres",
+          "Rapports PDF et CSV envoyés par e-mail à intervalle régulier, par client",
         ],
       },
       {
@@ -136,11 +168,12 @@ export const fr: Copy = {
       },
       {
         id: "integrations",
-        title: "Une API pour tout",
+        title: "S'intègre à vos outils",
         points: [
-          "Une API publique (/api/v1) documentée en OpenAPI, avec Swagger UI sur chaque installation",
-          "Webhooks sortants signés pour les incidents, prises en charge, serveurs et mises à jour",
-          "Plugins signés, installés depuis l'interface web, pour ajouter vérifications et canaux",
+          "Connexion par votre fournisseur d'identité : OpenID Connect, ou LDAP sur TLS",
+          "Reprenez hôtes, vérifications, seuils et canaux depuis un autre outil de supervision, avec un aperçu d'abord",
+          "Une API publique documentée en OpenAPI : tout ce que fait l'interface web",
+          "Webhooks sortants signés, et plugins signés pour ajouter vérifications et canaux",
         ],
       },
       {
@@ -190,7 +223,7 @@ export const fr: Copy = {
   msp: {
     title: "Pour les prestataires, caché tant que vous n'en avez pas besoin",
     text:
-      "Les clients gardent leurs serveurs, sites et notifications à part, et le rôle d'un utilisateur peut couvrir tout, un client ou un site. Une entreprise seule n'en voit rien : les clients apparaissent dès que vous en ajoutez un deuxième.",
+      "Les clients gardent leurs serveurs, sites et notifications à part, le rôle d'un utilisateur peut couvrir tout, un client ou un site, et chaque client a son propre rapport de disponibilité. Une entreprise seule n'en voit rien : les clients apparaissent dès que vous en ajoutez un deuxième.",
   },
   install: {
     title: "Prêt en 5 minutes",
@@ -213,7 +246,7 @@ export const fr: Copy = {
     copied: "Copié",
     requirementsTitle: "Ce qu'il vous faut",
     requirements: [
-      "Une machine Linux avec 2 vCPU et 4 Go de mémoire pour quelques dizaines de serveurs. Docker est installé pour vous s'il manque.",
+      "Une machine Linux avec 2 vCPU et 4 Go de mémoire : assez pour environ 8 000 serveurs lors de notre test de charge. Docker est installé pour vous s'il manque.",
       "Les ports 443 et 80 (interface web), 7443 et 7445 (agents et relais), 7480 (paquets, si vous utilisez les mises à jour).",
       "Les serveurs à surveiller : tout Linux avec systemd (x86_64 ou ARM64), ou Windows.",
     ],
@@ -223,9 +256,12 @@ export const fr: Copy = {
     title: "Bientôt",
     lead: "Sur la feuille de route, pas encore dans une version.",
     items: [
-      "Connexion par votre propre fournisseur d'identité : OpenID Connect, ou LDAP sur TLS (LDAPS)",
-      "Reprendre vos vérifications depuis un autre outil de supervision, avec un aperçu d'abord",
+      "Des vérifications prêtes à l'emploi pour bases de données, conteneurs et services cloud, sans script",
+      "Des cartes du réseau tirées de la découverte, avec les états en direct",
+      "Les flux réseau (NetFlow, sFlow, IPFIX) : quelles adresses et applications utilisent la bande passante",
+      "Les montées de version majeures des distributions par vagues, de Debian 12 à 13 d'abord",
       "Une connexion aux outils PSA (les outils de tickets des prestataires) : un ticket par incident",
+      "Une application mobile avec notifications",
     ],
     roadmap: "Lire la feuille de route",
   },

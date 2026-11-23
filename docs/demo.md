@@ -6,7 +6,7 @@
 
 The demo mode lives in the product repository (`docs/demo.md` there), so it follows the interface as it changes. `scripts/build-demo.mjs` here:
 
-1. checks out `web/` of `Kidoly/monitorflow` (`main`; while `main` has no demo build yet, the branch of pull request #524, `web/static-demo`),
+1. checks out `web/` of `Kidoly/monitorflow` (`main`, or the branch or tag in `MF_DEMO_REF`),
 2. runs `npm run build:demo` there with `NEXT_PUBLIC_MONITORFLOW_BASE_PATH=/demo` and the site's URL for the banner,
 3. copies the result into `public/demo/` (ignored by git), which the site build publishes at `/demo/`.
 

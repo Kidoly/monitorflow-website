@@ -29,6 +29,15 @@ export const icons = {
   simple: (
     <Icon><path d="m5 12 5 5L20 7" /></Icon>
   ),
+  network: (
+    <Icon><rect x="9" y="2" width="6" height="5" rx="1" /><rect x="2" y="17" width="6" height="5" rx="1" /><rect x="16" y="17" width="6" height="5" rx="1" /><path d="M12 7v5M5 17v-3h14v3" /></Icon>
+  ),
+  machines: (
+    <Icon><rect x="2" y="4" width="20" height="14" rx="2" /><rect x="5" y="7" width="6" height="4" rx=".5" /><rect x="13" y="7" width="6" height="4" rx=".5" /><path d="M8 21h8" /></Icon>
+  ),
+  reports: (
+    <Icon><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z" /><path d="M14 3v6h6" /><path d="M8 17v-3M12 17v-6M16 17v-2" /></Icon>
+  ),
   agent: (
     <Icon><rect x="3" y="4" width="18" height="7" rx="1.5" /><rect x="3" y="13" width="18" height="7" rx="1.5" /><path d="M7 7.5h.01M7 16.5h.01" /></Icon>
   ),

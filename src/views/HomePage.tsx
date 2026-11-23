@@ -11,7 +11,6 @@ const ROADMAP = `${site.github}/blob/main/docs/roadmap.md`;
 
 export function HomePage({ lang }: { lang: Lang }) {
   const c = copyFor(lang);
-  const featureIcons = [icons.monitoring, icons.alerts, icons.updates, icons.dashboards, icons.integrations, icons.simple];
   const howIcons = [icons.agent, icons.lock, icons.relay, icons.central];
   const audienceIcons = [icons.building, icons.people, icons.home];
 
@@ -80,9 +79,9 @@ export function HomePage({ lang }: { lang: Lang }) {
         <div className="wrap">
           <div className="section-head"><h2 id="features-title">{c.features.title}</h2></div>
           <div className="grid three">
-            {c.features.items.map((f, i) => (
+            {c.features.items.map((f) => (
               <div className="card" key={f.id} id={f.id}>
-                <div className="icon">{featureIcons[i]}</div>
+                <div className="icon">{icons[f.id as keyof typeof icons]}</div>
                 <h3>{f.title}</h3>
                 <ul className="checks">
                   {f.points.map((p) => <li key={p}>{p}</li>)}
