@@ -32,8 +32,13 @@ COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
 
 COPY . .
-# An empty MF_DEMO_REF lets the script pick main, or its fallback branch.
-RUN if [ -n "$MF_DEMO_REF" ]; then export MF_DEMO_REF; else unset MF_DEMO_REF; fi \
+# The product commit the guides and the demo are built from. The image
+# workflow passes the current one, so a new product commit rebuilds this
+# layer instead of reusing the cached one.
+ARG MF_PRODUCT_COMMIT=
+# An empty MF_DEMO_REF lets the script use main.
+RUN echo "Product commit: ${MF_PRODUCT_COMMIT:-unknown}" \
+ && if [ -n "$MF_DEMO_REF" ]; then export MF_DEMO_REF; else unset MF_DEMO_REF; fi \
  && npm run guides \
  && npm run demo \
  && npm run build

@@ -7,6 +7,7 @@ next-env.d.ts
 # Guides are pulled from the product repository at build time
 # (scripts/fetch-guides.mjs), never copied by hand.
 content/guides/
+content/release.json
 
 # The live demo is built from the product repository (scripts/build-demo.mjs).
 public/demo/
